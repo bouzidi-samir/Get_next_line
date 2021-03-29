@@ -6,7 +6,7 @@
 /*   By: sbouzidi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:07:49 by sbouzidi          #+#    #+#             */
-/*   Updated: 2021/03/22 12:18:27 by sbouzidi         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:47:08 by sbouzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ size_t	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
-	if (!s)
-		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);

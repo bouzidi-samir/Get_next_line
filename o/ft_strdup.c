@@ -6,7 +6,7 @@
 /*   By: sbouzidi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:40:17 by sbouzidi          #+#    #+#             */
-/*   Updated: 2021/03/26 09:09:42 by sbouzidi         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:30:16 by sbouzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ char	*ft_strdup(const char *src)
 	char	*copy;
 
 	size = ft_strlen(src);
-	copy = malloc(sizeof(char) * size);
+	copy = malloc(sizeof(char) * size + 1);
+	if (!copy)
+		return (0);
 	ft_strcpy(copy, src);
 	return (copy);
 }
