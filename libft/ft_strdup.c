@@ -6,13 +6,13 @@
 /*   By: sbouzidi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 14:40:17 by sbouzidi          #+#    #+#             */
-/*   Updated: 2021/03/29 14:30:16 by sbouzidi         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:45:02 by sbouzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_cpy(char *dest, const char *src)
 {
 	int	i;
 
@@ -35,6 +35,6 @@ char	*ft_strdup(const char *src)
 	copy = malloc(sizeof(char) * size + 1);
 	if (!copy)
 		return (0);
-	ft_strcpy(copy, src);
+	ft_cpy(copy, src);
 	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: sbouzidi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 09:07:18 by sbouzidi          #+#    #+#             */
-/*   Updated: 2021/03/29 10:26:10 by sbouzidi         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:19:05 by sbouzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		return (dst);
 	if (x > y)
 	{
-		while (i < len)
-		{
-			x[len - 1] = y[len - 1];
-			len --;
-		}	
+		while (i < len--)
+			x[len] = y[len];
 	}
 	else
 	{

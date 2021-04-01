@@ -6,7 +6,7 @@
 /*   By: sbouzidi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 12:46:26 by sbouzidi          #+#    #+#             */
-/*   Updated: 2021/03/29 14:52:31 by sbouzidi         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:50:32 by sbouzidi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 int	ft_atoi(const char *str)
 {
-	int	n;
-	int	nega;
+	long	i;
+	long	nbr;
+	int		isneg;
 
-	n = 0;
-	nega = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
+	i = 0;
+	nbr = 0;
+	isneg = 0;
+	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
+		i++;
+	if (str[i] != '\0' && str[i] == '-')
 	{
-		if (*str == '-')
-			nega = nega * -1;
-		str++;
+		isneg = 1;
+		i++;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		n = (n * 10) + (*str - 48);
-		str++;
-	}
-	return (n * nega);
+	else if (str[i] == '+')
+		i++;
+	while (str[i] != '\0' && ft_isdigit(str[i]))
+		nbr = (nbr * 10) + (str[i++] - '0');
+	if (isneg == 1)
+		return (-nbr);
+	return (nbr);
 }
