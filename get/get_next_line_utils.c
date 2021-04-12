@@ -12,14 +12,72 @@
 
 #include "get_next_line.h"
 
-int	ft_locate_line(char *buf, int curseur)
+char	*ft_strchr(char *s, int c)
 {
-	int n;
+	unsigned int	i;
 
-	n = 0;
-	while (buf[curseur] != '\n')
+	i = 0;
+	while (s[i])
 	{
-		n++;
+		if (s[i] == (char)c)
+			return ((char *)s + i);
+		i++;
 	}
-	return (n);
+	if (s[i] == (char)c)
+		return ((char *)s + i);
+	return (NULL);
+}
+
+unsigned int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s || start >= ft_strlen(s))
+		return (ft_strdup(""));
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (i >= start && j < len)
+		{
+			str[j] = s[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+char	*ft_strdup(char *s1)
+{
+	char	*dest;
+	int		i;
+
+	dest = malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

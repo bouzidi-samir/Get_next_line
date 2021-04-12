@@ -12,28 +12,21 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-#define BUFFER_SIZE 25
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-
-
-int	ft_locate_line(char *buf, int curseur);
-
-
-
-
-
-
-
-
-
+int				get_next_line(int fd, char **line);
+char			*ft_locate_line(char *str, char **line, int r);
+char			*ft_substr(char *s, unsigned int start, size_t len);
+char			*ft_strdup(char *s1);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_strchr(char *s, int c);
+unsigned int	ft_strlen(char *s);
 
 #endif
