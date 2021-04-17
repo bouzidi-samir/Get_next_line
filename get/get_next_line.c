@@ -12,48 +12,30 @@
 
 #include "get_next_line.h"
 
-char	*ft_locate_line(char *str, char **line, int r)
+int	count(char *str)
 {
-	char			*stock;
-	unsigned int	n;
+	int	i;
 
-	n = 0;
-	while (str[n])
-	{
-		if (str[n] == '\n')
-			break ;
-		n++;
-	}
-	if (n < ft_strlen(str))
-	{
-		*line = ft_substr(str, 0, n);
-		stock = ft_substr(str, n + 1, ft_strlen(str));
-		free(str);
-		str = ft_strdup(stock);
-		free(stock);
-	}
-	else if (r == 0)
-	{
-		*line = str;
-		str = NULL;
-	}
-	return (str);
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
 }
 
-char	*stock(char *buf, char *str)
+int	check_line(int fd, char **str)
 {
 	char	*stock;
+	char	buf[BUFFER_SIZE + 1];
+	int		b;
 
-	if (str)
-	{
-		stock = ft_strjoin(str, buf);
-		free(str);
-		str = ft_strdup(stock);
-		free(stock);
-	}
-	else
-		str = ft_strdup(buf);
-	return (str);
+	b = read(fd, buf, BUFFER_SIZE);
+	if (b < 1)
+		return (b);
+	buf[b] = '\0';
+	stock = ft_strjoin(*str, buf);
+	free(*str);
+	*str = stock;
+	return (b);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -84,30 +66,36 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
+void	check_empty(char **str)
+{
+	if (*str == NULL)
+		*str = ft_strdup("");
+}
+
 int	get_next_line(int fd, char **line)
 {
-	static char	*str[4096];
-	char		buf[BUFFER_SIZE + 1];
-	int			r;	
+	static char	*str = NULL;
+	char		*buf;
+	int			b;	
 
-	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, buf, 0) < 0)
+	if (fd < 0 || !line || BUFFER_SIZE < 1 || read(fd, str, 0) < 0)
 		return (-1);
-	while ((r = read(fd, buf, BUFFER_SIZE)))
-	{
-		if (r == -1)
-			return (-1);
-		buf[r] = '\0';
-		str[fd] = stock(buf, str[fd]);
-		if (ft_strchr(buf, '\n'))
-			break ;
-	}
-	if (r <= 0 && !str[fd])
-	{	
-		*line = ft_strdup("");
-		return (r);
-	}
-	str[fd] = ft_locate_line(str[fd], line, r);
-	if (r <= 0 && !str[fd])
-		return (r);
-	return (1);
+	b = 1;
+	check_empty(&str);
+	while (!ft_strchr(str, '\n') && b)
+		b = check_line(fd, &str);
+	if (b < 0)
+		return (-1);
+	else if (b == 0)
+		*line = ft_strdup(str);
+	else
+		*line = ft_substr(str, 0, count(str));
+	buf = ft_substr(str, count(str) + 1, ft_strlen(str) - count(str));
+	free(str);
+	str = buf;
+	if (b > 0)
+		return (1);
+	free(str);
+	str = NULL;
+	return (0);
 }

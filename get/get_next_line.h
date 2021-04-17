@@ -18,11 +18,12 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdlib.h>
 # include <stdio.h>
 
 int				get_next_line(int fd, char **line);
-char			*ft_locate_line(char *str, char **line, int r);
+int				count(char *str);
+int				check_line(int fd, char **str);
+void			check_empty(char **str);
 char			*ft_substr(char *s, unsigned int start, size_t len);
 char			*ft_strdup(char *s1);
 char			*ft_strjoin(char *s1, char *s2);
